@@ -10,23 +10,52 @@ public class MajorityElement {
     */
     private static int frequentElement(int[] arr) {
         int frequentElement = arr[0];
-        int indexOfElement = 0;
         int count = 1;
         for (int i = 1 ; i < arr.length ; ++i) {
-            if (count < 0) {
-                frequentElement = arr[i];
-                indexOfElement = i;
-                continue;
-            }
             if (frequentElement == arr[i]) {
                 ++count;
             } else {
                 --count;
             }
+            if (count == 0) {
+                frequentElement = arr[i];
+                count = 1;
+            }
         }
-        return frequentElement;
+        if (isFrequentElement(arr , frequentElement)) {
+            System.out.println("Found Majority element!!");
+            return frequentElement;
+        }
+        return Integer.MIN_VALUE;
+    }
+    private static boolean isFrequentElement(int[] arr , int frequentElement) {
+        int count = 0;
+        for (int x : arr) {
+            if (frequentElement == x) {
+                ++count;
+            }
+        }
+
+        return count > arr.length/2;    //returns true if the element is frequent or else return false
     }
     public static void main(String[] pg) {
         Scanner in = new Scanner(System.in);
+        System.out.print("Enter the size of the Array :");
+        int n = in.nextInt();
+        int[] array = new int[n];
+
+        System.out.println("Enter the elements of the Array!!");
+        for (int i = 0 ; i < n ; ++i) {
+            array[i] = in.nextInt();
+        }
+
+        int element = frequentElement(array);
+        if (element < 0) {
+            System.out.println("Element not Present!!");
+        } else {
+            System.out.println("Element is " + element);
+        }
+
+        in.close();
     }
 }
