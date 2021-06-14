@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class PeakElement {
     private static int findingPeak(int[] arr) {
-        int high = arr.length;
+        int high = arr.length-1;
         int low = 0;
 
         while (low < high) {
