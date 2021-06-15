@@ -8,14 +8,15 @@ public class FirstAndLastElement {
         int high = arr.length-1;
         int firstIndex = -1;
 
-        while (low < high) {
-            int mid = (low+high+1) >> 1;
-            if (arr[mid] < target) {
+        while (low <= high) {
+            int mid = (low+high) >> 1;
+            if (arr[mid] > target) {
                 high = mid - 1;
-            } else if (arr[mid] > target) {
+            } else if (arr[mid] < target) {
                 low = mid + 1;
             } else {
-                if
+                firstIndex = mid;
+                high = mid - 1;
             }
         }
         return firstIndex;
@@ -25,8 +26,16 @@ public class FirstAndLastElement {
         int high = arr.length-1;
         int lastIndex = -1;
 
-        while (low < high) {
-            int mid = (low+high+1) >> 1;
+        while (low <= high) {
+            int mid = (low+high) >> 1;
+            if (arr[mid] > target) {
+                high = mid - 1;
+            } else if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                lastIndex = mid;
+                low = mid + 1;
+            }
         }
         return lastIndex;
     }
@@ -41,5 +50,12 @@ public class FirstAndLastElement {
         for (int i = 0 ; i < n ; ++i) {
             arr[i] = in.nextInt();
         }
+
+        System.out.print("Enter the element you want to search: ");
+        int target = in.nextInt();
+
+        System.out.println("First occurrence of the element : " + firstIndexOfElement(arr,target));
+        System.out.println("Last occurrence of the element : " + lastIndexOfElement(arr,target));
+        in.close();
     }
 }
